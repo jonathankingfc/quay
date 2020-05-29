@@ -100,6 +100,7 @@ def put_service_key(service, kid):
 
     rotation_duration = request.args.get("rotation", None)
     expiration_date = request.args.get("expiration", None)
+    name = request.args.get("name", None)
     if expiration_date is not None:
         try:
             expiration_date = datetime.utcfromtimestamp(float(expiration_date))
@@ -128,7 +129,7 @@ def put_service_key(service, kid):
         # The key is self-signed. Create a new instance and await approval.
         _validate_jwt(encoded_jwt, jwk, service)
         model.create_service_key(
-            "", kid, service, jwk, metadata, expiration_date, rotation_duration=rotation_duration
+            name, kid, service, jwk, metadata, expiration_date, rotation_duration=rotation_duration
         )
 
         logs_model.log_action(
@@ -138,7 +139,7 @@ def put_service_key(service, kid):
                 "kid": kid,
                 "preshared": False,
                 "service": service,
-                "name": "",
+                "name": name,
                 "expiration_date": expiration_date,
                 "user_agent": request.headers.get("User-Agent"),
                 "ip": get_request_ip(),
