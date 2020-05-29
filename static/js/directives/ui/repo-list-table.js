@@ -50,8 +50,6 @@ angular.module('quay').directive('repoListTable', function () {
           return;
         }
 
-        console.log("RPM2", $scope.repoMirroringEnabled)
-
         $scope.options.reverse = false;
         $scope.options.predicate = predicate;
       };
