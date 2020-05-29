@@ -70,7 +70,7 @@
        </td>
        <td class="state" ng-show="repoMirroringEnabled">
         <span>
-          {{ ::repository.state }}
+          {{ ::repository.state.replace('_', ' ').toLowerCase() }}
         </span>
       </td>
        <td class="popularity hidden-xs">

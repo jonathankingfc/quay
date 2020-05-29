@@ -21,10 +21,6 @@
 
 .repo-list-table .state {
   font-size: 13px;
-  text-transform: lowercase;
-}
-
-.repo-list-table .state::first-letter {
   text-transform: capitalize;
 }
 
