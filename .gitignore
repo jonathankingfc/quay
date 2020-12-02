@@ -41,5 +41,4 @@ local-dev/mitm.cert
 local-dev/mitm.key
 local-dev/quay.kid
 local-dev/quay.pem
-local-dev/stack/
 local-dev/supervisord.conf

@@ -11,6 +11,7 @@ ENV OS=linux \
 
 # source code will be mounted here.
 ENV QUAYDIR /quay-registry 
+WORKDIR $QUAYDIR
 # all files necessary to invoke quay-entrypoint in the
 # local-dev environment will exist here.
 ENV QUAYCONF /quay-registry/local-dev
@@ -33,6 +34,12 @@ RUN INSTALL_PKGS="\
     yum -y --setopt=tsflags=nodocs --setopt=skip_missing_names_on_install=False install $INSTALL_PKGS && \
     yum -y update && \
     yum -y clean all
+
+COPY requirements.txt .
+RUN alternatives --set python /usr/bin/python3 && \
+    python -m pip install --no-cache-dir --upgrade setuptools pip && \
+    python -m pip install --no-cache-dir -r requirements.txt --no-cache && \
+    python -m pip freeze
 
 ENV JWTPROXY_VERSION=0.0.3
 RUN curl -fsSL -o /usr/local/bin/jwtproxy "https://github.com/coreos/jwtproxy/releases/download/v${JWTPROXY_VERSION}/jwtproxy-${OS}-${ARCH}" && \

@@ -1,6 +1,5 @@
 version: "3.7"
 services:
-
   quay-db:
     container_name: quay-db
     image: postgres:12.1
@@ -27,14 +26,14 @@ services:
 
   quay:
     container_name: quay-quay
-    build: 
+    build:
       context: .
       dockerfile: ./local-dev/Dockerfile
     image: quay-local:local
     volumes:
       - ".:/quay-registry"
     ports:
-      - "8080:8080" 
+      - "8080:8080"
     environment:
       DEBUGLOG: "true"
       IGNORE_VALIDATION: "true"
