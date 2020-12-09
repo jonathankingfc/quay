@@ -48,7 +48,9 @@ class RepositoryAuthorizedEmail(RepositoryParamResource):
         if not record:
             abort(404)
 
-        return record.to_dict()
+        response = record.to_dict()
+        del response['code']
+        return response
 
     @require_repo_admin
     @nickname("sendAuthorizeRepoEmail")
@@ -66,4 +68,7 @@ class RepositoryAuthorizedEmail(RepositoryParamResource):
                 record = model.create_email_authorization_for_repo(namespace, repository, email)
 
             send_repo_authorization_email(namespace, repository, email, record.code)
-            return record.to_dict()
+            
+            response = record.to_dict()
+            del response['code']
+            return response
