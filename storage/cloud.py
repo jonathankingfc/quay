@@ -1,6 +1,7 @@
 import os
 import logging
 import copy
+import base64
 
 from collections import namedtuple
 from datetime import datetime, timedelta
@@ -19,6 +20,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from prometheus_client import Counter
+import hashlib
 
 from util.registry import filelike
 from storage.basestorage import BaseStorageV2
@@ -359,11 +361,16 @@ class _CloudStorage(BaseStorageV2):
                     if bytes_staged == 0:
                         break
 
+                    md5 = hashlib.new("md5", usedforsecurity=False)
+                    md5.update(buf.getvalue())
+                    content_md5 = base64.b64encode(md5.digest()).decode("ascii")
+
                     buf.seek(0)
                     part = mp.Part(num_part)
                     part_upload = part.upload(
                         Body=buf,
                         ContentLength=bytes_staged,
+                        ContentMD5=content_md5,
                     )
                     upload_parts.append(_PartUpload(num_part, part_upload["ETag"]))
                     total_bytes_written += bytes_staged
