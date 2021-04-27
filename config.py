@@ -773,3 +773,5 @@ class DefaultConfig(ImmutableConfig):
 
     # Create organization on push if it does not exist
     CREATE_NAMESPACE_ON_PUSH = False
+    # Feature Flag: If set to true, the first User account may be created via API /api/v1/user/initialize
+    FEATURE_USER_INITIALIZE = False

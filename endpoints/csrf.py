@@ -60,13 +60,19 @@ def csrf_protect(
     request_token_name=_QUAY_CSRF_TOKEN_NAME,
     all_methods=False,
     check_header=True,
+    skip_paths=None,
 ):
+    if skip_paths is None:
+        skip_paths = []
+
     def inner(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             # Verify the CSRF token.
             if get_validated_oauth_token() is None:
-                if all_methods or (request.method != "GET" and request.method != "HEAD"):
+                if (not skip_paths or request.path not in skip_paths) and (
+                    all_methods or (request.method != "GET" and request.method != "HEAD")
+                ):
                     verify_csrf(session_token_name, request_token_name, check_header)
 
             # Invoke the handler.
