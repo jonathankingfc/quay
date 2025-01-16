@@ -20,15 +20,14 @@ certifi==2024.7.4
 chardet==5.2.0
 charset-normalizer==2.0.12
 click==8.1.7
-cryptography==43.0.3
+cryptography==42.0.5
 DateTime==4.3
 debtcollector==1.22.0
 decorator==5.1.1
 Deprecated==1.2.14
 dumb-init==1.2.5.post1
-elastic-transport==8.15.1
-elasticsearch==8.13.0
-elasticsearch-dsl==8.13.0
+elasticsearch==7.6.0
+elasticsearch-dsl==7.0.0
 Flask==2.3.2
 Flask-Login==0.6.3
 Flask-Mail==0.9.1
@@ -44,7 +43,7 @@ importlib-metadata==6.7.0
 iso8601==0.1.12
 isodate==0.6.1
 itsdangerous==2.1.2
-Jinja2==3.1.4
+Jinja2==3.1.5
 jmespath==1.0.1
 jsonpath-rw==1.4.0
 jsonpointer==2.4
